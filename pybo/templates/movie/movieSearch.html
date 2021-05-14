@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <h5 class="my-3 border-bottom pb-2">검색할 영화 이름을 입력해주세요</h5>
+  <form method="post" classs="post-form my-3">
+
+    {% for field,errors in form.errors.items() %}
+    <div class="alert alert-danger" role="alert">
+      <strong>{{ form[field].label }}</strong> : {{ ','.join(errors) }}
+    </div>
+    {% endfor %}
+
+    {{ form.csrf_token }}
+    {{ form.search.label }}
+    {{ form.search(class="form-control") }}
+
+    <button type="submit" class="my-3 btn btn-primary">검색하기</button>
+  </form>
+</div>
+
+{% if movie_list  %}
+<div class="container my-3">
+        <table class="table table-hover">
+            <thead>
+            <tr class="thead-dark">
+                <th>제목</th>
+                <th>부제목</th>
+                <th>감독</th>
+                <th>출연진</th>
+                <th>평점</th>
+                <th>날짜</th>
+                <th>이미지</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for temp in movie_list %}
+                <tr>
+                    <td> {{ temp['title'] | string }} </td>
+                    <td> {{ temp['subtitle'] }} </td>
+                    <td> {{ temp['director'] }} </td>
+                    <td> {{ temp['actor'] }} </td>
+                    <td> {{ temp['userRating'] }} </td>
+                    <td> {{ temp['pubDate'] }} </td>
+                    <td><img src="{{ temp.image }}"> </img> </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+</div>
+{% endif %}
+
+
+{% endblock %}
