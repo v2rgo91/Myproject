@@ -30,8 +30,8 @@ def create_app():
     app.register_blueprint(movie_views.bp)
     app.register_blueprint(movie_search_views.bp)
 
-    from .filters import format_str
-    app.jinja_env.filters['string'] = format_str
+    # from .filters import format_str
+    # app.jinja_env.filters['string'] = format_str
 
     return app
 
